@@ -1,32 +1,69 @@
-body{
+body {
     background-color: rgb(87, 8, 87);
-    width:100%;
+    width: 100%;
     text-align: center;
 }
 
-.website-header{
+.website-header {
     color: white;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     text-align: center;
     font-size: 50px;
 }
 
-.articles-list{
+.welcome-message {
+    color: white;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 25px;
+}
+
+/*Single Article*/
+
+.single-article {
+    background-color: blueviolet;
+    padding: 10px
+}
+
+.article-body {
+    text-align: left;
+}
+
+.back-home-link {
+    color: black;
+    border-style: solid;
+    background-color: green;
+    padding: 10px;
+}
+
+
+/*Article List*/
+.articles-list {
     display: grid;
     grid-template-columns: auto;
 }
 
+
+
+
+
 /*Article Cards*/
-.article-card{
+.article-card {
     margin-bottom: 5%;
     padding-left: 2.5%;
     padding-right: 2.5%;
     background-color: rgb(160, 45, 255);
-    object-fit:scale-down;
+    object-fit: scale-down;
 }
 
-.article-card-title{
+h2 {
     text-align: center;
     overflow-wrap: break-word;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.read-article-link {
+    color: black;
+    border-style: solid;
+    background-color: green;
+    padding: 10px;
 }

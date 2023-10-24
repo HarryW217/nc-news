@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { ArticleCard } from "./ArticleCard";
 
@@ -15,14 +15,16 @@ export const ArticleList = () => {
       });
   };
 
-  getArticles()
-    .then((articles) => {
-      setArticles(articles);
-      setError(null);
-    })
-    .catch((err) => {
-      setError(err);
-    });
+  useEffect(() => {
+    getArticles()
+      .then((articles) => {
+        setArticles(articles);
+        setError(null);
+      })
+      .catch((err) => {
+        setError(err);
+      });
+  });
 
   if (error) return <p>{error.msg}</p>;
 
