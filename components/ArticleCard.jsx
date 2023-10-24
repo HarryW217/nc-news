@@ -9,7 +9,9 @@ export const ArticleCard = ({ article }) => {
       <h3>Topic: {article.topic}</h3>
       <h3>Votes: {article.votes}</h3>
 
-      <Link className="read-article-link"to={`articles/${article.article_id}`}>Read Article</Link>
+      <Link className="read-article-link" to={`articles/${article.article_id}`}>
+        Read Article
+      </Link>
     </article>
   );
 };
