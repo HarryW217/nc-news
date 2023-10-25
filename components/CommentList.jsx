@@ -8,6 +8,7 @@ export const CommentList = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [comments, setComments] = useState([]);
   const { article_id } = useParams();
+  const [commentBody, setCommentBody] = useState("");
 
   const getComments = (articleId) => {
     return axios
@@ -31,10 +32,13 @@ export const CommentList = () => {
         setError(err);
         setIsLoading(false);
       });
-  }, [article_id]);
+  }, [article_id, commentBody]);
 
   if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>{error.response.data.msg}</p>;
+  if (error) { 
+    return <p>{error.msg}</p>;
+    //Not sure what I am doing with my error handling!
+  } 
 
   if (comments.length === 0) {
     return (
@@ -45,9 +49,38 @@ export const CommentList = () => {
     );
   }
 
+  const postComment = (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    return axios
+      .post(
+        `https://api-news-zhvd.onrender.com/api/articles/${article_id}/comments`, {
+          username: "tickle122",
+          body:e.target[0].value,
+        }
+      )
+      .then(({ data }) => {
+        setIsLoading(false);
+        setCommentBody(data.comment);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        setError(err);
+      });
+  };
+
   return (
     <section className="comment-list">
-      <h2 className="comments-title">COMMENTS:</h2>
+      <h2 className="comments-title">COMMENT SECTION:</h2>
+      <div>
+        <form onSubmit={postComment}>
+          <h2>Have your say... post a comment!</h2>
+          <p>Signed in as: tickle122</p>
+          <label>Your Comment</label>
+          <input type="text"></input>
+          <button>Post</button>
+        </form>
+      </div>
       {comments.map((comment, key) => {
         return <CommentCard comment={comment} key={key} />;
       })}

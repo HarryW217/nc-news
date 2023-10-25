@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 
 export const ArticleCard = ({ article }) => {
+  //Date and Time variables
   const date = new Date(article.created_at);
-
   const time = date.toLocaleString(undefined, {
     hour: "2-digit",
     minute: "2-digit",

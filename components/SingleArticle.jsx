@@ -10,6 +10,13 @@ export const SingleArticle = () => {
   const [error, setError] = useState(null);
   const { article_id } = useParams();
 
+  //Date and Time variables
+  const date = new Date(article.created_at);
+  const time = date.toLocaleString(undefined, {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
   const getArticle = (articleId) => {
     return axios
       .get(`https://api-news-zhvd.onrender.com/api/articles/${articleId}`)
@@ -34,7 +41,7 @@ export const SingleArticle = () => {
 
   if (isLoading) return <p>Loading...</p>;
 
-  if (error) return <p>{error.msg}</p>;
+  if (error) return <p>{error.response.data.msg}</p>;
 
   return (
     <div>
@@ -42,9 +49,9 @@ export const SingleArticle = () => {
         <h2>{article.title}</h2>
         <img src={article.article_img_url}></img>
         <h3>
-          Author: {article.author} | Published: {article.created_at}
+          Author: {article.author} | Published: {time}, {date.toDateString()}
         </h3>
-        <VoteChanger article={article}/>
+        <VoteChanger article={article} />
         <p className="article-body">{article.body}</p>
         <Link className="back-home-link" to="/">
           Click here to go back home

@@ -30,13 +30,7 @@ export const ArticleList = () => {
   }, []);
 
   if (isLoading) return <p>Loading...</p>;
-  if (error)
-    return (
-      <p>
-        {error.status}
-        {error.msg}
-      </p>
-    );
+  if (error) return <p>{error.response.data.msg}</p>;
 
   return (
     <section className="articles-list">

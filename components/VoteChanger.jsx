@@ -14,6 +14,7 @@ export const VoteChanger = ({ article }) => {
       })
       .catch((err) => {
         setError(err);
+        console.log(error)
       });
   };
 
@@ -21,7 +22,7 @@ export const VoteChanger = ({ article }) => {
     updateVotes(userVotes);
   }, [userVotes]);
 
-  if (error) return <p>{error.msg}</p>;
+  if (error) return <p>{error.response.data.msg}</p>;
 
   return (
     <div>
