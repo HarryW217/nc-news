@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { CommentList } from "./CommentList";
+import { VoteChanger } from "./VoteChanger";
 
 export const SingleArticle = () => {
   const [article, setArticle] = useState({});
@@ -43,7 +44,7 @@ export const SingleArticle = () => {
         <h3>
           Author: {article.author} | Published: {article.created_at}
         </h3>
-        <h3>Article Votes: {article.votes}</h3>
+        <VoteChanger article={article}/>
         <p className="article-body">{article.body}</p>
         <Link className="back-home-link" to="/">
           Click here to go back home

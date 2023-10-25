@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { CommentCard } from "./CommentCard";
 
 export const CommentList = () => {
@@ -34,7 +34,16 @@ export const CommentList = () => {
   }, [article_id]);
 
   if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>{error.msg}</p>;
+  if (error) return <p>{error.response.data.msg}</p>;
+
+  if (comments.length === 0) {
+    return (
+      <section className="comment-list">
+        <h2 className="comments-title">COMMENTS:</h2>
+        <h3>This post has no comments!</h3>
+      </section>
+    );
+  }
 
   return (
     <section className="comment-list">
