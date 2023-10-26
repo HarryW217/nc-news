@@ -8,12 +8,13 @@ const App = () => {
   return (
     <div className="App">
       <h1 className="website-header">NC NEWS</h1>
-      <p className="welcome-message">Welcome! Browse our extensive catalogue of Articles below...</p>
       <Routes>
         <Route path="/" element={<ArticleList />} />
         <Route path="/articles/:article_id" element={<SingleArticle />} />
       </Routes>
+      <footer>Developed by Harry Walker. 2023.</footer>
     </div>
+
   );
 };
 

@@ -14,15 +14,13 @@ export const VoteChanger = ({ article }) => {
       })
       .catch((err) => {
         setError(err);
-        console.log(error)
+        setUserVotes(0);
       });
   };
 
   useEffect(() => {
     updateVotes(userVotes);
   }, [userVotes]);
-
-  if (error) return <p>{error.response.data.msg}</p>;
 
   return (
     <div>
@@ -31,7 +29,11 @@ export const VoteChanger = ({ article }) => {
         disabled={userVotes === 1}
         onClick={() => {
           setUserVotes((currentVotes) => {
-            return currentVotes + 1;
+            if (error) {
+              return 0;
+            } else {
+              return currentVotes + 1;
+            }
           });
         }}
       >
@@ -41,12 +43,22 @@ export const VoteChanger = ({ article }) => {
         disabled={userVotes === -1}
         onClick={() => {
           setUserVotes((currentVotes) => {
-            return currentVotes - 1;
+            if (error) {
+              return 0;
+            } else {
+              return currentVotes - 1;
+            }
           });
         }}
       >
         Down-vote
       </button>
+      {error && error.message === "Network Error" ? (
+        <p>
+          Sorry! You cannot vote due to an unstable connection. Please try again
+          later.
+        </p>
+      ) : null}
     </div>
   );
 };

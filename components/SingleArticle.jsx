@@ -46,6 +46,9 @@ export const SingleArticle = () => {
   return (
     <div>
       <article className="single-article">
+        <Link className="back-home-link" to="/">
+          Click here to go back home
+        </Link>
         <h2>{article.title}</h2>
         <img src={article.article_img_url}></img>
         <h3>
@@ -53,9 +56,6 @@ export const SingleArticle = () => {
         </h3>
         <VoteChanger article={article} />
         <p className="article-body">{article.body}</p>
-        <Link className="back-home-link" to="/">
-          Click here to go back home
-        </Link>
       </article>
       <CommentList></CommentList>
     </div>
