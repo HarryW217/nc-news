@@ -34,29 +34,15 @@ export const CommentList = () => {
       });
   }, [article_id, commentBody]);
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) { 
-    return <p>{error.msg}</p>;
-    //Not sure what I am doing with my error handling!
-  } 
-
-  if (comments.length === 0) {
-    return (
-      <section className="comment-list">
-        <h2 className="comments-title">COMMENTS:</h2>
-        <h3>This post has no comments!</h3>
-      </section>
-    );
-  }
-
   const postComment = (e) => {
     e.preventDefault();
     setIsLoading(true);
     return axios
       .post(
-        `https://api-news-zhvd.onrender.com/api/articles/${article_id}/comments`, {
+        `https://api-news-zhvd.onrender.com/api/articles/${article_id}/comments`,
+        {
           username: "tickle122",
-          body:e.target[0].value,
+          body: e.target[0].value,
         }
       )
       .then(({ data }) => {
@@ -77,13 +63,25 @@ export const CommentList = () => {
           <h2>Have your say... post a comment!</h2>
           <p>Signed in as: tickle122</p>
           <label>Your Comment</label>
-          <input type="text"></input>
+          <input type="text" required></input>
           <button>Post</button>
         </form>
+        {isLoading ? <p>Please wait while your comment is posting...</p> : null}
+        {error && error.message === "Network Error" ? (
+          <p>
+            {" "}
+            Sorry! You cannot post due to an unstable connection. Please try
+            again later.
+          </p>
+        ) : null}
       </div>
-      {comments.map((comment, key) => {
-        return <CommentCard comment={comment} key={key} />;
-      })}
+      {comments.length === 0 ? (
+        <h3 className="no-comment-text">This post has no comments</h3>
+      ) : (
+        comments.map((comment, key) => {
+          return <CommentCard comment={comment} key={key} />;
+        })
+      )}
     </section>
   );
 };
