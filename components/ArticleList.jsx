@@ -97,8 +97,7 @@ export const ArticleList = () => {
       });
   }, []);
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+  if (isLoading) return <p className="loading-text">Please wait while we load...</p>;
 
   return (
     <section className="articles-list">
@@ -134,7 +133,11 @@ export const ArticleList = () => {
       </article>
 
       <article className="sorting-menu">
-        <h2>Sorted by: {"created_at" || sortByProperty}</h2>
+        {sortByProperty ? (
+          <h2>Sorted by: {sortByProperty}</h2>
+        ) : (
+          <h2>Sorted by: created_at</h2>
+        )}
         <h2>Why not sort by...</h2>
         <nav>
           <button
@@ -166,7 +169,12 @@ export const ArticleList = () => {
             : "View in Descending Order"}
         </button>
       </article>
-
+      {error && error.message === "Network Error" ? (
+        <p className="error-message">
+          Sorry! Your internet connection is unstable and we cannot load your
+          request. Please try again later!
+        </p>
+      ) : null}
       {articles.map((article, key) => {
         return <ArticleCard article={article} key={key} />;
       })}

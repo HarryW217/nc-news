@@ -5,6 +5,7 @@ import { useState } from "react";
 export const CommentCard = ({ comment }) => {
 
   const [isDeleted, setIsDeleted] = useState(false)
+  const [error,setError]=useState(null)
 
   //Date and Time variables
   const date = new Date(comment.created_at);
@@ -17,7 +18,8 @@ export const CommentCard = ({ comment }) => {
   const deleteComment = () => {
     return axios.delete(`https://api-news-zhvd.onrender.com/api/comments/${comment.comment_id}`)
       .catch((err) => {
-      console.log(err)
+        setIsDeleted(false)
+        setError(err)
     })
   }
 
@@ -26,6 +28,11 @@ export const CommentCard = ({ comment }) => {
     deleteComment()
   }
 
+  if (error && error.message === "Network Error") {
+    return <p>Warning! We cannot delete your comment as your
+      interet connection is unstable. Please try again later.
+    </p>
+  }
 
   if (isDeleted) {
     return <p>Your comment was successfully deleted</p>

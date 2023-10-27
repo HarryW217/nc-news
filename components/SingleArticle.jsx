@@ -40,9 +40,7 @@ export const SingleArticle = () => {
   }, [article_id]);
 
   if (isLoading) return <p>Loading...</p>;
-
-  if (error) return <p>{error.response.data.msg}</p>;
-
+  
   return (
     <div>
       <article className="single-article">
