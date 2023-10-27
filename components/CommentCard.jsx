@@ -5,6 +5,7 @@ export const CommentCard = ({ comment }) => {
     hour: "2-digit",
     minute: "2-digit",
   });
+  const year = date.getFullYear
 
   return (
     <article className="comment-card">
@@ -13,6 +14,7 @@ export const CommentCard = ({ comment }) => {
       <p className="votes-and-created-at">
         Votes: {comment.votes} | Posted: {time}, {date.toDateString()}
       </p>
+      {year>=2023?(<button>Delete Comment</button>):null}
     </article>
   );
 };

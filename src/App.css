@@ -17,6 +17,10 @@ body {
     font-size: 25px;
 }
 
+.filter-section {
+    border-style: solid;
+}
+
 /*Single Article*/
 
 .single-article {
