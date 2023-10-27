@@ -1,12 +1,36 @@
+import axios from "axios";
+import { useState } from "react";
+
+
 export const CommentCard = ({ comment }) => {
+
+  const [isDeleted, setIsDeleted] = useState(false)
+
   //Date and Time variables
   const date = new Date(comment.created_at);
   const time = date.toLocaleString(undefined, {
     hour: "2-digit",
     minute: "2-digit",
   });
-  const year = date.getFullYear
+  const year = date.getFullYear()
 
+  const deleteComment = () => {
+    return axios.delete(`https://api-news-zhvd.onrender.com/api/comments/${comment.comment_id}`)
+      .catch((err) => {
+      console.log(err)
+    })
+  }
+
+  const handleDelete = () => {
+    setIsDeleted(true)
+    deleteComment()
+  }
+
+
+  if (isDeleted) {
+    return <p>Your comment was successfully deleted</p>
+  }
+  
   return (
     <article className="comment-card">
       <h2 className="comment-author">{comment.author}:</h2>
@@ -14,7 +38,7 @@ export const CommentCard = ({ comment }) => {
       <p className="votes-and-created-at">
         Votes: {comment.votes} | Posted: {time}, {date.toDateString()}
       </p>
-      {year>=2023?(<button>Delete Comment</button>):null}
+      {year >= 2023 ? <button onClick={handleDelete}>Delete Comment</button>:null}
     </article>
   );
 };

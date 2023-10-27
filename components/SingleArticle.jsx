@@ -51,7 +51,7 @@ export const SingleArticle = () => {
         </Link>
         <h2>{article.title}</h2>
         <img src={article.article_img_url}></img>
-        <h3>
+        <h3 className="author-and-published">
           Author: {article.author} | Published: {time}, {date.toDateString()}
         </h3>
         <VoteChanger article={article} />

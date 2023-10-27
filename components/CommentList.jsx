@@ -61,7 +61,7 @@ export const CommentList = () => {
       <div>
         <form onSubmit={postComment}>
           <h2>Have your say... post a comment!</h2>
-          <p>Signed in as: tickle122</p>
+          <p className="signed-in-as-text">Signed in as: tickle122</p>
           <label>Your Comment</label>
           <input type="text" required></input>
           <button>Post</button>
