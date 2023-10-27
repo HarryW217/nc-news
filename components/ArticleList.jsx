@@ -21,10 +21,10 @@ export const ArticleList = () => {
       .then(({ data }) => {
         if (sortByProperty) {
           const sortedArticles = data.sort((a, b) => {
-            if (a[sortByProperty] < b[sortByProperty]) {
+            if (a[sortByProperty] > b[sortByProperty]) {
               return -1;
             }
-            if (a[sortByProperty] > b[sortByProperty]) {
+            if (a[sortByProperty] < b[sortByProperty]) {
               return 1;
             }
             return 0;
@@ -133,17 +133,29 @@ export const ArticleList = () => {
         )}
       </article>
 
-      <article>
-        <h2>Sorted by: {sortByProperty}</h2>
+      <article className="sorting-menu">
+        <h2>Sorted by: {"created_at" || sortByProperty}</h2>
         <h2>Why not sort by...</h2>
         <nav>
-          <button onClick={handleSortClick} value={"created_at"}>
+          <button
+            className="sort-button"
+            onClick={handleSortClick}
+            value={"created_at"}
+          >
             Date
           </button>
-          <button onClick={handleSortClick} value={"comment_count"}>
+          <button
+            className="sort-button"
+            onClick={handleSortClick}
+            value={"comment_count"}
+          >
             Comment Count
           </button>
-          <button onClick={handleSortClick} value={"votes"}>
+          <button
+            className="sort-button"
+            onClick={handleSortClick}
+            value={"votes"}
+          >
             Votes
           </button>
         </nav>
@@ -151,7 +163,7 @@ export const ArticleList = () => {
         <button onClick={handleOrderClick}>
           {isDescending === true
             ? "View in Ascending Order"
-            : "View in Descending"}
+            : "View in Descending Order"}
         </button>
       </article>
 
