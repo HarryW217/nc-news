@@ -1,21 +1,39 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { ArticleCard } from "./ArticleCard";
+import { useSearchParams } from "react-router-dom";
 
 export const ArticleList = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [articles, setArticles] = useState([]);
   const [topics, setTopics] = useState([]);
-  const [currentTopic, setCurrentTopic] = useState("");
-  const [topicQuery, setTopicQuery] = useState("");
+  const [sortByProperty, setSortByProperty] = useState("");
+  const [isDescending, setIsDescending] = useState(true);
+
+  const [searchParams, setSearchParams] = useSearchParams();
 
   //Get requests
   const getArticles = () => {
+    const query = searchParams.toString();
     return axios
-      .get(`https://api-news-zhvd.onrender.com/api/articles${topicQuery}`)
+      .get(`https://api-news-zhvd.onrender.com/api/articles?${query}`)
       .then(({ data }) => {
-        return data;
+        if (sortByProperty) {
+          const sortedArticles = data.sort((a, b) => {
+            if (a[sortByProperty] < b[sortByProperty]) {
+              return -1;
+            }
+            if (a[sortByProperty] > b[sortByProperty]) {
+              return 1;
+            }
+            return 0;
+          });
+          return isDescending === true
+            ? sortedArticles
+            : sortedArticles.reverse();
+        }
+        return isDescending ? data : data.reverse();
       });
   };
 
@@ -30,13 +48,24 @@ export const ArticleList = () => {
   //Button click handlers
   const handleTopic = (e) => {
     const slug = e.target.value;
-    setCurrentTopic(slug);
-    setTopicQuery("?topic=" + slug);
+    setSearchParams("topic=" + slug);
   };
 
   const handleViewAll = () => {
-    setCurrentTopic("");
-    setTopicQuery("");
+    setSearchParams("");
+  };
+
+  const handleSortClick = (e) => {
+    const property = e.target.value;
+    setSortByProperty(property);
+  };
+
+  const handleOrderClick = () => {
+    if (isDescending === true) {
+      setIsDescending(false);
+    } else {
+      setIsDescending(true);
+    }
   };
 
   //useEffects
@@ -52,7 +81,7 @@ export const ArticleList = () => {
         setError(err);
         setIsLoading(false);
       });
-  }, [topicQuery]);
+  }, [searchParams, sortByProperty, isDescending]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -76,29 +105,56 @@ export const ArticleList = () => {
       <p className="welcome-message">
         Welcome! Browse our extensive catalogue of Articles below...
       </p>
-      <h2>Filter by topic...</h2>
-      <nav>
-        <button className="topic-button" onClick={handleViewAll}>
-          view all articles
+      <article className="filter-section">
+        {" "}
+        <h2>Filter by topic...</h2>
+        <nav>
+          <button className="topic-button" onClick={handleViewAll}>
+            view all articles
+          </button>
+          {topics.map((topic, key) => {
+            return (
+              <button
+                key={key}
+                className="topic-button"
+                onClick={handleTopic}
+                value={topic.slug}
+              >
+                {topic.slug}
+              </button>
+            );
+          })}
+        </nav>
+        {searchParams.toString() ===
+        `topic=${searchParams.toString().slice(6)}` ? (
+          <h2>{searchParams.toString().slice(6)} articles</h2>
+        ) : (
+          <h2>all articles</h2>
+        )}
+      </article>
+
+      <article>
+        <h2>Sorted by: {sortByProperty}</h2>
+        <h2>Why not sort by...</h2>
+        <nav>
+          <button onClick={handleSortClick} value={"created_at"}>
+            Date
+          </button>
+          <button onClick={handleSortClick} value={"comment_count"}>
+            Comment Count
+          </button>
+          <button onClick={handleSortClick} value={"votes"}>
+            Votes
+          </button>
+        </nav>
+        <h2>Order: {isDescending === true ? "Descending" : "Ascending"}</h2>
+        <button onClick={handleOrderClick}>
+          {isDescending === true
+            ? "View in Ascending Order"
+            : "View in Descending"}
         </button>
-        {topics.map((topic, key) => {
-          return (
-            <button
-              key={key}
-              className="topic-button"
-              onClick={handleTopic}
-              value={topic.slug}
-            >
-              {topic.slug}
-            </button>
-          );
-        })}
-      </nav>
-      {currentTopic !== "" ? (
-        <h2>{currentTopic} articles</h2>
-      ) : (
-        <h2> all articles</h2>
-      )}
+      </article>
+
       {articles.map((article, key) => {
         return <ArticleCard article={article} key={key} />;
       })}

@@ -9,7 +9,7 @@ const App = () => {
     <div className="App">
       <h1 className="website-header">NC NEWS</h1>
       <Routes>
-        <Route path="/" element={<ArticleList />} />
+        <Route path="/" element={<ArticleList/>}/>
         <Route path="/articles/:article_id" element={<SingleArticle />} />
       </Routes>
       <footer>Developed by Harry Walker. 2023.</footer>
