@@ -40,6 +40,11 @@ export const SingleArticle = () => {
   }, [article_id]);
 
   if (isLoading) return <p>Loading...</p>;
+
+  if (error && error.message === "Network Error") return <p>
+    Sorry! We cannot load this article as your internet connection is unstable.
+    Please try again later.
+  </p>
   
   return (
     <div>
