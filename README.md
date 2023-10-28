@@ -14,7 +14,8 @@ This project makes use of the API News back-end server I developed, which you ca
 
 ## Hosted Version
 
-The app is hosted using Netlify. Have a visit yourself here: INSERT LINK
+The app is hosted using Netlify. Have a visit yourself here: https://ncnewsbyharry.netlify.app/
+
 
 ## How to use NC News!
 
