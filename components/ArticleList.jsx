@@ -97,7 +97,7 @@ export const ArticleList = () => {
       });
   }, []);
 
-  if (isLoading) return <p className="loading-text">Please wait while we load...</p>;
+  if (isLoading) return <p className="loading-text">Loading</p>;
 
   return (
     <section className="articles-list">
@@ -126,9 +126,9 @@ export const ArticleList = () => {
         </nav>
         {searchParams.toString() ===
         `topic=${searchParams.toString().slice(6)}` ? (
-          <h2>{searchParams.toString().slice(6)} articles</h2>
+          <h2>Displaying: {searchParams.toString().slice(6)} articles</h2>
         ) : (
-          <h2>all articles</h2>
+          <h2>Displaying: all articles</h2>
         )}
       </article>
 
