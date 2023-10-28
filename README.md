@@ -19,7 +19,13 @@ The app is hosted using Netlify. Have a visit yourself here: https://ncnewsbyhar
 
 ## How to use NC News!
 
-Write how to use
+`Browsing` : Users can look through the website, viewing various article previews and then clicking on the 'Read Article' button to view the dedicated article page. Each article has a button that will take the user back home if they wish to browse the other articles. 
+
+`Filtering` : Users can choose which articles they would like to display. They can filter by topic with the click of the topic's button. They may also sort the articles by comment count, votes (both either from highest or lowest) or date (from newest or oldest). The articles are sorted in descending date order by default. 
+
+`Voting` : The user may vote on any article, increasing or decreasing the vote count by 1. The hard-coded user can only change the amount either way by 1 on any visit to the page. 
+
+`Commenting` : The user may comment as many times as they like on any article. They have the option to delete their posted comments if they wish. 
 
 ## Instructions for running locally
 
