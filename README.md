@@ -16,6 +16,8 @@ This project makes use of the API News back-end server I developed, which you ca
 
 The app is hosted using Netlify. Have a visit yourself here: https://ncnewsbyharry.netlify.app/
 
+**Please note** - the first time you visit the website, you may be on the loading screen for a while. This is normal; the data from the API is being fetched for the first time. The page is not broken, it will just take a few moments!
+
 
 ## How to use NC News!
 
