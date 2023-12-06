@@ -97,7 +97,7 @@ export const ArticleList = () => {
       });
   }, []);
 
-  if (isLoading) return <p className="loading-text">Loading</p>;
+  if (isLoading) return <p className="loading-text">Loading...</p>;
 
   return (
     <section className="articles-list">
