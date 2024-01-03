@@ -51,4 +51,4 @@ And then...
 code .
 ```
 
-Now you are ready to build on and deploy your own front-end application. Enjoy!
+Now you are ready to build on and deploy your own front-end application. Enjoy! :)
