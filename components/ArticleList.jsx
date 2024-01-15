@@ -97,7 +97,7 @@ export const ArticleList = () => {
       });
   }, []);
 
-  if (isLoading) return <p className="loading-text">Loading...</p>;
+  if (isLoading) return <p className="loading-text">Please wait while we fetch your articles. This may take a few moments...</p>;
 
   return (
     <section className="articles-list">
