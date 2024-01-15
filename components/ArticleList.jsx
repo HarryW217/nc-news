@@ -11,6 +11,7 @@ export const ArticleList = () => {
   const [sortByProperty, setSortByProperty] = useState("");
   const [isDescending, setIsDescending] = useState(true);
   const [isTopicDropdownOpen, setTopicDropdownOpen] = useState(false);
+  const [isSortDropdownOpen, setSortDropdownOpen] = useState(false);
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -71,6 +72,10 @@ export const ArticleList = () => {
 
   const toggleTopicDropdown = () => {
     setTopicDropdownOpen(!isTopicDropdownOpen);
+  };
+
+  const toggleSortDropdown = () => {
+    setSortDropdownOpen(!isSortDropdownOpen);
   };
 
   //useEffects
@@ -153,36 +158,43 @@ export const ArticleList = () => {
         ) : (
           <h2>Sorted by: created_at</h2>
         )}
-        <h2>Why not sort by...</h2>
-        <nav>
-          <button
-            className="sort-button"
-            onClick={handleSortClick}
-            value={"created_at"}
-          >
-            Date
-          </button>
-          <button
-            className="sort-button"
-            onClick={handleSortClick}
-            value={"comment_count"}
-          >
-            Comment Count
-          </button>
-          <button
-            className="sort-button"
-            onClick={handleSortClick}
-            value={"votes"}
-          >
-            Votes
-          </button>
-        </nav>
-        <h2>Order: {isDescending === true ? "Descending" : "Ascending"}</h2>
-        <button onClick={handleOrderClick}>
-          {isDescending === true
-            ? "View in Ascending Order"
-            : "View in Descending Order"}
+        <button className="sort-dropdown-toggle" onClick={toggleSortDropdown}>
+          {isSortDropdownOpen ? "Hide Sort Options" : "Show Sort Options"}
         </button>
+        {isSortDropdownOpen && (
+          <div>
+            <h2>Why not sort by...</h2>
+            <nav>
+              <button
+                className="sort-button"
+                onClick={handleSortClick}
+                value={"created_at"}
+              >
+                Date
+              </button>
+              <button
+                className="sort-button"
+                onClick={handleSortClick}
+                value={"comment_count"}
+              >
+                Comment Count
+              </button>
+              <button
+                className="sort-button"
+                onClick={handleSortClick}
+                value={"votes"}
+              >
+                Votes
+              </button>
+            </nav>
+            <h2>Order: {isDescending === true ? "Descending" : "Ascending"}</h2>
+            <button onClick={handleOrderClick}>
+              {isDescending === true
+                ? "View in Ascending Order"
+                : "View in Descending Order"}
+            </button>
+          </div>
+        )}
       </article>
       {error && error.message === "Network Error" ? (
         <p className="error-message">
