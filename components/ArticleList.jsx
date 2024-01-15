@@ -123,7 +123,7 @@ export const ArticleList = () => {
           <h2>Current display: all articles</h2>
         )}
         <h2>Filter by topic...</h2>
-        <button className="dropdown-toggle" onClick={toggleDropdown}>
+        <button className="dropdown-toggle" onClick={toggleTopicDropdown}>
           {isTopicDropdownOpen ? "Hide Topics" : "Show Topics"}
         </button>
         {isTopicDropdownOpen && (
