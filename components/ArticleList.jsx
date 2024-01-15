@@ -10,6 +10,7 @@ export const ArticleList = () => {
   const [topics, setTopics] = useState([]);
   const [sortByProperty, setSortByProperty] = useState("");
   const [isDescending, setIsDescending] = useState(true);
+  const [isTopicDropdownOpen, setTopicDropdownOpen] = useState(false);
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -68,6 +69,10 @@ export const ArticleList = () => {
     }
   };
 
+  const toggleTopicDropdown = () => {
+    setTopicDropdownOpen(!isTopicDropdownOpen);
+  };
+
   //useEffects
   useEffect(() => {
     setIsLoading(true);
@@ -97,7 +102,12 @@ export const ArticleList = () => {
       });
   }, []);
 
-  if (isLoading) return <p className="loading-text">Please wait while we fetch your articles. This may take a few moments...</p>;
+  if (isLoading)
+    return (
+      <p className="loading-text">
+        Please wait while we fetch your articles. This may take a few moments...
+      </p>
+    );
 
   return (
     <section className="articles-list">
@@ -106,29 +116,34 @@ export const ArticleList = () => {
       </p>
       <article className="filter-section">
         {" "}
-        <h2>Filter by topic...</h2>
-        <nav>
-          <button className="topic-button" onClick={handleViewAll}>
-            view all articles
-          </button>
-          {topics.map((topic, key) => {
-            return (
-              <button
-                key={key}
-                className="topic-button"
-                onClick={handleTopic}
-                value={topic.slug}
-              >
-                {topic.slug}
-              </button>
-            );
-          })}
-        </nav>
         {searchParams.toString() ===
         `topic=${searchParams.toString().slice(6)}` ? (
-          <h2>Displaying: {searchParams.toString().slice(6)} articles</h2>
+          <h2>Current display: {searchParams.toString().slice(6)} articles</h2>
         ) : (
-          <h2>Displaying: all articles</h2>
+          <h2>Current display: all articles</h2>
+        )}
+        <h2>Filter by topic...</h2>
+        <button className="dropdown-toggle" onClick={toggleDropdown}>
+          {isTopicDropdownOpen ? "Hide Topics" : "Show Topics"}
+        </button>
+        {isTopicDropdownOpen && (
+          <nav>
+            <button className="topic-button" onClick={handleViewAll}>
+              view all articles
+            </button>
+            {topics.map((topic, key) => {
+              return (
+                <button
+                  key={key}
+                  className="topic-button"
+                  onClick={handleTopic}
+                  value={topic.slug}
+                >
+                  {topic.slug}
+                </button>
+              );
+            })}
+          </nav>
         )}
       </article>
 
