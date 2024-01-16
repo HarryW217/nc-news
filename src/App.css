@@ -245,23 +245,33 @@ footer {
   .welcome-message {
     color: white;
     font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-    font-size: 2rem;
+    font-size: 25px;
     overflow: auto;
+  }
+
+  #header-and-toggle{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
   }
 
   .filter-section {
     border-style: solid;
     margin: 1%;
-    width: 90%;
+    width: 60%;
     justify-self: center;
+  }
+
+  #sorting-header-and-toggle{
     display: flex;
-    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
   }
 
   .sorting-menu {
     border-style: solid;
     margin: 1%;
-    width: 90%;
+    width: 60%;
     justify-self: center;
   }
 
