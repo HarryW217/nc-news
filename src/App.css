@@ -253,6 +253,7 @@ footer {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    background-color: rgb(194, 51, 99);
   }
 
   .filter-section {
@@ -260,12 +261,14 @@ footer {
     margin: 1%;
     width: 60%;
     justify-self: center;
+    background-color: rgb(194, 51, 99);
   }
 
   #sorting-header-and-toggle{
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    background-color: rgb(194, 51, 99);
   }
 
   .sorting-menu {
@@ -273,6 +276,7 @@ footer {
     margin: 1%;
     width: 60%;
     justify-self: center;
+    background-color: rgb(194, 51, 99);
   }
 
   /*Comment List*/
