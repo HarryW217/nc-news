@@ -153,6 +153,7 @@ footer {
     justify-self: center;
     display: flex;
     flex-direction: column;
+    background-color: rgb(194, 51, 99);
   }
 
   .sorting-menu {
@@ -160,6 +161,7 @@ footer {
     margin: 1%;
     width: 90%;
     justify-self: center;
+    background-color: rgb(194, 51, 99);
   }
 
   .articles-list {
@@ -245,24 +247,38 @@ footer {
   .welcome-message {
     color: white;
     font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-    font-size: 2rem;
+    font-size: 25px;
     overflow: auto;
+  }
+
+  #header-and-toggle{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: rgb(194, 51, 99);
   }
 
   .filter-section {
     border-style: solid;
     margin: 1%;
-    width: 90%;
+    width: 60%;
     justify-self: center;
+    background-color: rgb(194, 51, 99);
+  }
+
+  #sorting-header-and-toggle{
     display: flex;
-    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: rgb(194, 51, 99);
   }
 
   .sorting-menu {
     border-style: solid;
     margin: 1%;
-    width: 90%;
+    width: 60%;
     justify-self: center;
+    background-color: rgb(194, 51, 99);
   }
 
   /*Comment List*/
