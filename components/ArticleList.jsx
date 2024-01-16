@@ -10,6 +10,8 @@ export const ArticleList = () => {
   const [topics, setTopics] = useState([]);
   const [sortByProperty, setSortByProperty] = useState("");
   const [isDescending, setIsDescending] = useState(true);
+  const [isTopicDropdownOpen, setTopicDropdownOpen] = useState(false);
+  const [isSortDropdownOpen, setSortDropdownOpen] = useState(false);
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -68,6 +70,14 @@ export const ArticleList = () => {
     }
   };
 
+  const toggleTopicDropdown = () => {
+    setTopicDropdownOpen(!isTopicDropdownOpen);
+  };
+
+  const toggleSortDropdown = () => {
+    setSortDropdownOpen(!isSortDropdownOpen);
+  };
+
   //useEffects
   useEffect(() => {
     setIsLoading(true);
@@ -97,7 +107,12 @@ export const ArticleList = () => {
       });
   }, []);
 
-  if (isLoading) return <p className="loading-text">Loading...</p>;
+  if (isLoading)
+    return (
+      <p className="loading-text">
+        Please wait while we fetch your articles. This may take a few moments...
+      </p>
+    );
 
   return (
     <section className="articles-list">
@@ -106,68 +121,88 @@ export const ArticleList = () => {
       </p>
       <article className="filter-section">
         {" "}
-        <h2>Filter by topic...</h2>
-        <nav>
-          <button className="topic-button" onClick={handleViewAll}>
-            view all articles
+        <div id="header-and-toggle">
+          {" "}
+          {searchParams.toString() ===
+          `topic=${searchParams.toString().slice(6)}` ? (
+            <h2>
+              Current displaying {searchParams.toString().slice(6)} articles
+            </h2>
+          ) : (
+            <h2>Current displaying all articles</h2>
+          )}
+          <button className="dropdown-toggle" onClick={toggleTopicDropdown}>
+            {isTopicDropdownOpen ? "Hide Topics" : "Show Topics"}
           </button>
-          {topics.map((topic, key) => {
-            return (
-              <button
-                key={key}
-                className="topic-button"
-                onClick={handleTopic}
-                value={topic.slug}
-              >
-                {topic.slug}
-              </button>
-            );
-          })}
-        </nav>
-        {searchParams.toString() ===
-        `topic=${searchParams.toString().slice(6)}` ? (
-          <h2>Displaying: {searchParams.toString().slice(6)} articles</h2>
-        ) : (
-          <h2>Displaying: all articles</h2>
+        </div>
+        {isTopicDropdownOpen && (
+          <nav id="topic-nav-bar">
+            <button className="topic-button" onClick={handleViewAll}>
+              view all articles
+            </button>
+            {topics.map((topic, key) => {
+              return (
+                <button
+                  key={key}
+                  className="topic-button"
+                  onClick={handleTopic}
+                  value={topic.slug}
+                >
+                  {topic.slug}
+                </button>
+              );
+            })}
+          </nav>
         )}
       </article>
 
       <article className="sorting-menu">
-        {sortByProperty ? (
-          <h2>Sorted by: {sortByProperty}</h2>
-        ) : (
-          <h2>Sorted by: created_at</h2>
-        )}
-        <h2>Why not sort by...</h2>
-        <nav>
-          <button
-            className="sort-button"
-            onClick={handleSortClick}
-            value={"created_at"}
-          >
-            Date
+        <div id="sorting-header-and-toggle">
+          {sortByProperty ? (
+            <h2>Sorted by {sortByProperty}</h2>
+          ) : (
+            <h2>Sorted by date</h2>
+          )}
+          <button className="sort-dropdown-toggle" onClick={toggleSortDropdown}>
+            {isSortDropdownOpen ? "Hide Sort Options" : "Show Sort Options"}
           </button>
-          <button
-            className="sort-button"
-            onClick={handleSortClick}
-            value={"comment_count"}
-          >
-            Comment Count
-          </button>
-          <button
-            className="sort-button"
-            onClick={handleSortClick}
-            value={"votes"}
-          >
-            Votes
-          </button>
-        </nav>
-        <h2>Order: {isDescending === true ? "Descending" : "Ascending"}</h2>
-        <button onClick={handleOrderClick}>
-          {isDescending === true
-            ? "View in Ascending Order"
-            : "View in Descending Order"}
-        </button>
+        </div>
+          {isSortDropdownOpen && (
+            <div id="sort-nav-bars">
+              <h2>Why not sort by...</h2>
+              <nav>
+                <button
+                  className="sort-button"
+                  onClick={handleSortClick}
+                  value={"created_at"}
+                >
+                  Date
+                </button>
+                <button
+                  className="sort-button"
+                  onClick={handleSortClick}
+                  value={"comment_count"}
+                >
+                  Comment Count
+                </button>
+                <button
+                  className="sort-button"
+                  onClick={handleSortClick}
+                  value={"votes"}
+                >
+                  Votes
+                </button>
+              </nav>
+              <h2>
+                Order: {isDescending === true ? "Descending" : "Ascending"}
+              </h2>
+              <button onClick={handleOrderClick}>
+                {isDescending === true
+                  ? "View in Ascending Order"
+                  : "View in Descending Order"}
+              </button>
+            </div>
+          )}
       </article>
       {error && error.message === "Network Error" ? (
         <p className="error-message">
