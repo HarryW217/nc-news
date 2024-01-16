@@ -153,6 +153,7 @@ footer {
     justify-self: center;
     display: flex;
     flex-direction: column;
+    background-color: rgb(194, 51, 99);
   }
 
   .sorting-menu {
@@ -160,6 +161,7 @@ footer {
     margin: 1%;
     width: 90%;
     justify-self: center;
+    background-color: rgb(194, 51, 99);
   }
 
   .articles-list {
